@@ -1,0 +1,14 @@
+#!/bin/bash
+echo INFO Install ansible
+sudo pip3 install ansible
+read -rp "Please input your server ip add: " server_ip
+if ping -c 3 "$server_ip"; then
+cat << EOF | tee inventory/selfhost
+[selfhost]
+"$server_ip"
+EOF
+fi
+echo INFO set up env
+ansible-playbook -vvv env.yml
+echo INFO install v2ray
+ansible-playbook -vvv v2ray.yml
