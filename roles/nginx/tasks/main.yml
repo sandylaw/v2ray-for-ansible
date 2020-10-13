@@ -5,18 +5,6 @@
 - import_tasks: centos.yml
   when: ansible_distribution == "CentOS"
 
-- name: Install package
-  package:
-    name: nginx
-    state: present
-
-- name: Enable service
-  systemd:
-    name: nginx
-    state: started
-    daemon_reload: yes
-    enabled: yes
-
 - name: Generate config
   template:
     src: "{{ item }}.j2"

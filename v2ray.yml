@@ -11,19 +11,11 @@
   vars_prompt:
     - name: email_addr
       prompt: "Email"
-      default: "your.email@example.com"
+      default: "abc@gmail.com"
       private: no
     - name: domain_name
       prompt: "Domain name"
-      default: "your.domain.example.com"
-      private: no
-    - name: v2ray_ver
-      prompt: "V2Ray version"
-      default: "4.21.3"
-      private: no
-    - name: v2ray_arch
-      prompt: "V2Ray arch"
-      default: "64"
+      default: "v.abc.com"
       private: no
 
   roles:
@@ -38,6 +30,4 @@
           from: "{{ proxy_from }}"
       srv_name: "v2ray"
     - role: v2ray
-      app_ver: "{{ v2ray_ver }}"
-      app_arch: "{{ v2ray_arch }}"
       app_port: "{{ proxy_port }}"

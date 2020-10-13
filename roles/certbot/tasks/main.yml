@@ -1,5 +1,16 @@
 ---
-- name: Install package
+- name: Install nginx package
+  package:
+    name: nginx
+    state: present
+
+- name: Enable nginx service
+  systemd:
+    name: nginx
+    state: started
+    daemon_reload: yes
+    enabled: yes
+- name: Install certbot package
   package:
     name: certbot
     state: present
