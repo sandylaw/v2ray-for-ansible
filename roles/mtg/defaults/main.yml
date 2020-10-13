@@ -1,0 +1,9 @@
+mtg_version: v1.0.7
+mtg_checksum: sha512:596b0ecdbb8953f4a48aa8cc2d3a1b232271ac3d088285c6303075727e657ac5425fe5a5bc4b76206b69660dec24699e56cd368a888877f7553c39f10fe1a1fd
+mtg_debug: false
+mtg_verbose: false
+mtg_ip: 0.0.0.0
+mtg_port: 39665
+mtg_user: 'mtg'
+mtg_cap_net_bind_service: false
+mtg_secret: ee07d1a1740a0ec3ebe63603c41137501062696e672e636f6d

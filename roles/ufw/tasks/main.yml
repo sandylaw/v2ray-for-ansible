@@ -1,0 +1,68 @@
+---
+- name: Install ufw package
+  package:
+    name: ufw
+    state: present
+
+- name: Ufw reset
+  community.general.ufw:
+    state: reset
+
+- name: Allow everything and enable UFW
+  community.general.ufw:
+    state: enabled
+    policy: allow
+
+- name: Set logging
+  community.general.ufw:
+    logging: 'on'
+
+- name: Default Deny incoming
+  community.general.ufw:
+    default: deny
+
+- name: Set configured port fact
+  set_fact:
+    configured_port: "{{ ansible_port }}"
+
+- name: Allow ssh
+  community.general.ufw:
+    rule: allow
+    port: "{{ ansible_port }}"
+    proto: tcp
+
+- name: Setup alternate SSH port
+  lineinfile:
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^[#]Port"
+    line: "Port {{ configured_port }}"
+  notify: "Restart sshd"
+
+- name: Allow https 443
+  community.general.ufw:
+    rule: allow
+    port: 443
+    proto: tcp
+
+- name: Allow v2ray 8600
+  community.general.ufw:
+    rule: allow
+    port: 8600
+
+- name: Allow mtp 39665
+  community.general.ufw:
+    rule: allow
+    port: 39665
+
+
+- name: Restart sshd
+  service:
+    name: sshd
+    state: restarted
+
+- name: Enable ufw service
+  systemd:
+    name: ufw
+    state: started
+    daemon_reload: yes
+    enabled: yes

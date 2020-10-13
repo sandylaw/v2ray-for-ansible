@@ -1,17 +1,46 @@
 #!/bin/bash
 
-if ! [ -f /usr/local/bin/ansible ];then
+if ! [ -f /usr/local/bin/ansible ]; then
     echo INFO Install ansible
     sudo pip3 install ansible
 fi
 read -rp "Please input your server ip add: " server_ip
+echo "INFO Please set your server sshd port first!"
+read -rp "Please input your server sshd port: " sshd_port
 if ping -c 3 "$server_ip"; then
     cat << EOF | tee inventory/selfhost
 [selfhost]
-"$server_ip"
+myserver ansible_port="$sshd_port" ansible_host="$server_ip"
 EOF
 fi
 echo INFO set up env
-ansible-playbook -vvv env.yml
+ansible-playbook -vvv playbooks/env.yml
+
 echo INFO install v2ray
-ansible-playbook -vvv v2ray.yml
+read -rp "Do you want to install v2ray? yes or no: " _YoN
+case "$_YoN" in
+    yes | y | Y | YES)
+        ansible-playbook -vvv playbooks/v2ray.yml
+        ;;
+    *) ;;
+
+esac
+
+echo INFO set up mtg
+read -rp "Do you want to install mtp? yes or no: " _YoN
+case "$_YoN" in
+    yes | y | Y | YES)
+        ansible-playbook -vvv playbooks/mtg.yml
+        ;;
+    *) ;;
+
+esac
+
+read -rp "Do you want to install ufw? yes or no: " _YoN
+case "$_YoN" in
+    yes | y | Y | YES)
+        ansible-playbook -vvv playbooks/ufw.yml
+        ;;
+    *) ;;
+
+esac

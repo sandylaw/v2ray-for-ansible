@@ -1,0 +1,46 @@
+MTG_DEBUG={{ mtg_debug | lower }}
+MTG_VERBOSE={{ mtg_verbose | lower }}
+MTG_SECRET={{ mtg_secret.stdout }}
+{% if mtg_adtag is defined %}
+MTG_ADTAG={{ mtg_adtag }}
+{% endif %}
+MTG_BIND={{ mtg_ip }}:{{ mtg_port }}
+{% if mtg_ipv4 is defined %}
+MTG_IPV4={{ mtg_ipv4 }}:{{ mtg_ipv4_port }}
+{% endif %}
+{% if mtg_ipv6 is defined %}
+MTG_IPV6={{ mtg_ipv6 }}:{{ mtg_ipv6_port }}
+{% endif %}
+{% if mtg_stats_bind is defined %}
+MTG_STATS_BIND={{ mtg_stats_bind }}
+{% endif %}
+{% if mtg_statsd_ip is defined %}
+MTG_STATSD_IP={{ mtg_statsd_ip }}
+{% endif %}
+{% if mtg_statsd_port is defined %}
+MTG_STATSD_PORT={{ mtg_statsd_port }}
+{% endif %}
+{% if mtg_statsd_prefix is defined %}
+MTG_STATSD_PREFIX={{ mtg_statsd_prefix }}
+{% endif %}
+{% if mtg_statsd_tags_format is defined %}
+MTG_STATSD_TAGS_FORMAT={{ mtg_statsd_tags_format }}
+{% endif %}
+{% if mtg_statsd_tags is defined %}
+MTG_STATSD_TAGS={{ mtg_statsd_tags }}
+{% endif %}
+{% if mtg_buffer_write is defined %}
+MTG_BUFFER_WRITE={{ mtg_buffer_write }}
+{% endif %}
+{% if mtg_buffer_read is defined %}
+MTG_BUFFER_READ={{ mtg_buffer_read }}
+{% endif %}
+{% if mtg_antireplay_maxsize is defined %}
+MTG_ANTIREPLAY_MAXSIZE={{ mtg_antireplay_maxsize }}
+{% endif %}
+{% if mtg_multiplex_perconnection is defined %}
+MTG_MULTIPLEX_PERCONNECTION={{ mtg_multiplex_perconnection }}
+{% endif %}
+{% if mtg_secure_only is defined %}
+MTG_SECURE_ONLY={{ mtg_secure_only | lower }}
+{% endif %}
