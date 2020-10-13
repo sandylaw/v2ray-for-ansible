@@ -15,7 +15,7 @@ GNU/Linux 10 上测试通过。Debian GNU/Linux 更低版本或 Ubuntu
 
 为了正常使用 V2Ray，应当满足以下要求：
 
-* 一台云主机，如[搬瓦工,优惠码：BWH3HYATVBJW](https://bwh88.net/aff.php?aff=43530&pid=57)、 [Vultr](https://www.vultr.com/?ref=7123175)、[Linode](https://www.linode.com/?r=28bf53dae49d2c55dd671136769c0b7526db5891)、[DO](https://m.do.co/c/7758457f61ad) 等等。
+* 一台云主机，如[搬瓦工](https://bwh88.net/aff.php?aff=43530&pid=57)优惠码：`BWH3HYATVBJW`、 [Vultr](https://www.vultr.com/?ref=7123175)、[Linode](https://www.linode.com/?r=28bf53dae49d2c55dd671136769c0b7526db5891)、[DO](https://m.do.co/c/7758457f61ad) 等等。
 * 一个域名且已经绑定到云主机。
 * Ansible，可参考[官方文档](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-the-control-node)安装。
 

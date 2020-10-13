@@ -1,9 +1,12 @@
 #!/bin/bash
-echo INFO Install ansible
-sudo pip3 install ansible
+
+if ! [ -f /usr/local/bin/ansible ];then
+    echo INFO Install ansible
+    sudo pip3 install ansible
+fi
 read -rp "Please input your server ip add: " server_ip
 if ping -c 3 "$server_ip"; then
-cat << EOF | tee inventory/selfhost
+    cat << EOF | tee inventory/selfhost
 [selfhost]
 "$server_ip"
 EOF
