@@ -23,21 +23,21 @@
 
 - name: Set configured port fact
   set_fact:
-    configured_port: "{{ ansible_port }}"
-
-- name: Allow ssh
-  community.general.ufw:
-    rule: allow
-    port: "{{ ansible_port }}"
-    proto: tcp
+    configured_port: "{{ sshd_port }}"
 
 - name: Setup alternate SSH port
   lineinfile:
     dest: "/etc/ssh/sshd_config"
-    regexp: "^[#]Port"
+    regexp: "^[#]*Port"
     line: "Port {{ configured_port }}"
-  notify: "Restart sshd"
+    state: present
 
+- name: Allow ssh
+  community.general.ufw:
+    rule: allow
+    port: "{{ configured_port }}"
+    proto: tcp
+    
 - name: Allow https 443
   community.general.ufw:
     rule: allow

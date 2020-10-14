@@ -1,2 +1,2 @@
 [selfhost]
-myserver ansible_port="39271" ansible_host="vv.v2less.com"
+myserver ansible_port="22" ansible_host="192.168.122.43"
