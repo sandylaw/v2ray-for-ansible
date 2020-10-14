@@ -1,22 +1,18 @@
 ---
-- name: "Check mtg version"
-  slurp:
-    src: "/etc/mtg/VERSION"
-  ignore_errors: yes
-  register: mtgver
+- name: Install python3 python3-pip
+  package:
+    name:
+      - python3
+      - python3-pip
+    state: present
 
-- name: Get list of releases
-  uri:
-    url: https://api.github.com/repos/9seconds/mtg/releases/latest
-    return_content: yes
-  register: mtg_releases
-
-- name: Warn if new version has been found
-  fail:
-    msg: "Newer version {{ mtg_releases.json.tag_name }} available, consider updating"
-  ignore_errors: yes
-  when: mtg_releases.json.tag_name != mtg_version|string
-
+- name: Install require module
+  pip:
+    name:
+      - github3.py
+    executable: pip3
+    state: present
+  
 - name: Create mtg user
   user:
     name: "{{ mtg_user }}"
@@ -35,10 +31,16 @@
     - /opt/mtg
     - /etc/mtg
 
+- name: Get latest release of mtg
+  github_release:
+    user: 9seconds
+    repo: mtg
+    action: latest_release
+  register: mtg_latest
+
 - name: Download binary
   get_url:
-    url: "https://github.com/9seconds/mtg/releases/download/{{ mtg_version }}/mtg-linux-{{ mtg_architecture | default('amd64') }}"
-#    checksum: "{{ mtg_checksum }}"
+    url: "https://github.com/9seconds/mtg/releases/download/{{ mtg_latest.tag }}/mtg-linux-{{ mtg_architecture | default('amd64') }}"
     dest: /opt/mtg/mtg-linux-amd64
     owner: "{{ mtg_user }}"
     group: "{{ mtg_user }}"
@@ -64,6 +66,7 @@
     group: "{{ mtg_user }}"
     mode: '0640'
     dest: /etc/mtg/config
+    force: yes
   notify: restart mtg
 
 - name: Upload systemd unit file
@@ -76,14 +79,11 @@
     - systemd daemon-reload
     - restart mtg
 
-- name: "Create VERSION file"
-  copy:
-    content: "{{ mtg_version }}"
-    dest: "/etc/mtg/VERSION"
-    mode: 0600
-
 - name: Enable service
   systemd:
     name: mtg
     state: started
     enabled: yes
+    
+- name: cat /etc/mtg/config
+  shell: cat /etc/mtg/config

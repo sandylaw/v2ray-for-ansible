@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 if ! [ -f /usr/local/bin/ansible ]; then
     echo INFO Install ansible
     sudo pip3 install ansible
@@ -23,7 +23,6 @@ case "$_YoN" in
         ansible-playbook -vvv playbooks/v2ray.yml
         ;;
     *) ;;
-
 esac
 
 echo INFO set up mtg
