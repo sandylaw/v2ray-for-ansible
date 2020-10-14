@@ -98,3 +98,10 @@
       echo -e "vmess link: ${vmess_link}"
     } >> ~/v2ray.info
 
+- name: cat ~/v2ray.info
+  shell: cat ~/v2ray.info
+  register: v2ray_info
+  
+- name: print v2ray_conf
+  debug:
+    msg: "{{ v2ray_info.stdout_lines }}"

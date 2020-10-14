@@ -7,11 +7,3 @@
 - name: systemd daemon-reload
   systemd:
     daemon_reload: yes
-    
-- name: cat /etc/mtg/config
-  shell: cat /etc/mtg/config
-  register: mtg_conf
-  
-- name: print mtg_conf
-  debug:
-    msg: "{{ mtg_conf.stdout_lines }}"
