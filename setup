@@ -20,7 +20,7 @@ echo INFO install v2ray
 read -rp "Do you want to install v2ray? yes or no: " _YoN
 case "$_YoN" in
     yes | y | Y | YES)
-        ansible-playbook -vvv playbooks/v2ray.yml
+        ansible-playbook playbooks/v2ray.yml
         ;;
     *) ;;
 esac
@@ -29,7 +29,7 @@ echo INFO set up mtg
 read -rp "Do you want to install mtp? yes or no: " _YoN
 case "$_YoN" in
     yes | y | Y | YES)
-        ansible-playbook -vvv playbooks/mtg.yml
+        ansible-playbook playbooks/mtg.yml
         ;;
     *) ;;
 
@@ -38,7 +38,7 @@ esac
 read -rp "Do you want to install ufw? yes or no: " _YoN
 case "$_YoN" in
     yes | y | Y | YES)
-        ansible-playbook -vvv playbooks/ufw.yml
+        ansible-playbook playbooks/ufw.yml
         ;;
     *) ;;
 
