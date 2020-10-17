@@ -3,6 +3,22 @@
   package:
     name:
       - qrencode
+      - gpg
+      - unzip
+    state: present
+
+- name: Install python3 python3-pip
+  package:
+    name:
+      - python3
+      - python3-pip
+    state: present
+
+- name: Install require module
+  pip:
+    name:
+      - github3.py
+    executable: pip3
     state: present
     
 - name: ensure directory exist
@@ -64,22 +80,40 @@
     path: /usr/local/v2ray_qr.json
     state: touch
     mode: u=rw,g=r,o=r
+
+- name: mk v2ray log dir
+  file:
+    path: /var/log/v2ray
+    state: directory
+    mode: 0755
+
+- name: Touch v2ray access log file
+  file:
+    path: /var/log/v2ray/access.log
+    state: touch
+    mode: 0644
     
+- name: Touch v2ray error log file
+  file:
+    path: /var/log/v2ray/error.log
+    state: touch
+    mode: 0644
+
 - name: Write v2ray json
   shell: |
     echo '{
-  "v": "2",
-  "ps": "{{ domain_name }}",
-  "add": "{{ domain_name }}",
-  "port": "443",
-  "id": "{{ uuid.stdout }}",
-  "aid": "66",
-  "net": "ws",
-  "type": "none",
-  "host": "{{ domain_name }}",
-  "path": "/c58640f/",
-  "tls": "tls"
-}' > /usr/local/v2ray_qr.json
+    "v": "2",
+    "ps": "{{ domain_name }}",
+    "add": "{{ domain_name }}",
+    "port": "443",
+    "id": "{{ uuid.stdout }}",
+    "aid": "66",
+    "net": "ws",
+    "type": "none",
+    "host": "{{ domain_name }}",
+    "path": "/c58640f/",
+    "tls": "tls"
+    }' > /usr/local/v2ray_qr.json
 
 - name: Touch v2ray json
   file:
@@ -92,10 +126,10 @@
 
 - name: write link to v2ray info 
   shell: |
-    vmess_link="vmess://$(base64 -w 0 /usr/share/v2ray_qr.json)"
+    vmess_link="vmess://$(base64 -w 0 /usr/local/v2ray_qr.json)"
     {
       echo -n "${vmess_link}" | qrencode -o - -t utf8
-      echo -e "vmess link: ${vmess_link}"
+      echo "vmess link: ${vmess_link}"
     } >> ~/v2ray.info
 
 - name: cat ~/v2ray.info

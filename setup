@@ -10,7 +10,7 @@ read -rp "Please input your server sshd port: " sshd_port
 if ping -c 3 "$server_ip"; then
     cat << EOF | tee inventory/selfhost
 [selfhost]
-myserver ansible_port="$sshd_port" ansible_host="$server_ip"
+myserver ansible_port="$sshd_port" ansible_host="$server_ip" ansible_python_interpreter=/usr/bin/python3
 EOF
 fi
 echo INFO set up env

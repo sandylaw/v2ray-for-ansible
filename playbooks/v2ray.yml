@@ -19,7 +19,7 @@
       private: no
 
   roles:
-    - role: certbot
+    - role: acme
       email: "{{ email_addr }}"
       domains:
         - "{{ domain_name }}"
