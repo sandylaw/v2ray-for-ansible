@@ -56,7 +56,7 @@
   notify: restart mtg
 
 - name: Generate mtg_secret
-  shell: mtg generate-secret -c bing.com tls
+  shell: /opt/mtg/mtg-linux-amd64 generate-secret -c bing.com tls
   register: mtg_secret
 
 - name: Generate config
