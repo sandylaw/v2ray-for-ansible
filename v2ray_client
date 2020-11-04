@@ -32,3 +32,6 @@ case "$_YoN" in
 
 esac
 sudo sed -ri '/proxy/d' /etc/hosts
+cat << EOF | tee inventory/selfhost
+[selfhost]
+EOF

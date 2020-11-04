@@ -44,6 +44,12 @@
     port: 443
     proto: tcp
 
+- name: Allow http 80
+  community.general.ufw:
+    rule: allow
+    port: 80
+    proto: tcp
+
 - name: Allow v2ray 8600
   community.general.ufw:
     rule: allow

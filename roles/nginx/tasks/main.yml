@@ -84,8 +84,10 @@
     state: directory
     mode: 0755
 
-- name: Acme.sh the site
+- name: Acme.sh for v2ray
   shell: |
-    acme.sh --issue  -d "{{ domain_name }}" --cert-file /data/v2ray.crt --key-file /data/v2ray.key --nginx
+    acme.sh --issue -d "{{ domain_name }}" --standalone -k ec-256 --force
+    sleep 2
+    acme.sh --installcert -d "{{ domain_name }}" --fullchainpath /data/v2ray.crt --keypath /data/v2ray.key --ecc --force
   when: install_directory is defined
   notify: restart nginx
