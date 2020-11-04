@@ -4,6 +4,7 @@
     name:
       - gpg
       - unzip
+      - nginx
     state: present
 
 - import_tasks: debian.yml
