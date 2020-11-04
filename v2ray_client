@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e
+if ! [ -f /usr/local/bin/ansible ]; then
+    echo INFO Install ansible
+    pip3 install ansible
+fi
+read -rp "Please input your local proxy ip add: " server_ip
+echo "INFO Please set your local proxy sshd port first!"
+read -rp "Please input your server sshd port: " sshd_port
+read -rp "Please input the proxy domain name: " domain_name
+read -rp "Please input v2ray uuid: " uuid
+if ping -c 3 "$server_ip"; then
+    sudo sed -ri '/proxy/d' /etc/hosts
+    cat << EOF | sudo tee -a /etc/hosts
+${server_ip}       selfhost
+EOF
+    cat << EOF | tee inventory/selfhost
+[selfhost]
+myserver ansible_port="$sshd_port" ansible_host="$server_ip" ansible_python_interpreter=/usr/bin/python3
+[selfhost:vars]
+domain_name="$domain_name"
+uuid="$uuid"
+EOF
+fi
+
+read -rp "Do you want to install v2ray for client? yes or no: " _YoN
+case "$_YoN" in
+    yes | y | Y | YES)
+        ansible-playbook playbooks/v2ray_client.yml
+        ;;
+    *) ;;
+
+esac
+sudo sed -ri '/proxy/d' /etc/hosts

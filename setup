@@ -2,7 +2,7 @@
 set -e
 if ! [ -f /usr/local/bin/ansible ]; then
     echo INFO Install ansible
-    sudo pip3 install ansible
+    pip3 install ansible
 fi
 read -rp "Please input your server ip add: " server_ip
 echo "INFO Please set your server sshd port first!"
@@ -39,6 +39,15 @@ read -rp "Do you want to install ufw? yes or no: " _YoN
 case "$_YoN" in
     yes | y | Y | YES)
         ansible-playbook playbooks/ufw.yml
+        ;;
+    *) ;;
+
+esac
+
+read -rp "Do you want to install v2ray for client? yes or no: " _YoN
+case "$_YoN" in
+    yes | y | Y | YES)
+        ansible-playbook playbooks/v2ray_client.yml
         ;;
     *) ;;
 
