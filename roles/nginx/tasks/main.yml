@@ -72,10 +72,20 @@
     state: directory
     mode: 0755
   when: install_directory is defined
-  notify: stop nginx
+
+- name: Stop nginx
+  systemd:
+    state: stopped
+    name: nginx
+
+- name: Make sure the /data/ exist
+  file:
+    path: /data
+    state: directory
+    mode: 0755
 
 - name: Acme.sh the site
   shell: |
-    acme.sh --issue  -d "{{ domain_name }}"  --nginx
+    acme.sh --issue  -d "{{ domain_name }}" --cert-file /data/v2ray.crt --key-file /data/v2ray.key --nginx
   when: install_directory is defined
   notify: restart nginx

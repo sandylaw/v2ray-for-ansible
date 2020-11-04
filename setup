@@ -52,3 +52,8 @@ case "$_YoN" in
     *) ;;
 
 esac
+
+cat << EOF | tee inventory/selfhost
+[selfhost]
+EOF
+fi
