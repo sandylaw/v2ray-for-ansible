@@ -37,7 +37,7 @@
     rule: allow
     port: "{{ configured_port }}"
     proto: tcp
-    
+
 - name: Allow https 443
   community.general.ufw:
     rule: allow

@@ -26,6 +26,7 @@
   file:
     path: "/etc/nginx/sites-{{ item }}"
     state: directory
+    mode: 0755
   loop:
     - available
     - enabled
@@ -68,4 +69,12 @@
     owner: www-data
     group: www-data
     state: directory
+    mode: 0755
   when: install_directory is defined
+  notify: stop nginx
+
+- name: Acme.sh the site
+  shell: |
+    acme.sh --issue  -d "{{ domain_name }}"  --nginx
+  when: install_directory is defined
+  notify: restart nginx
