@@ -27,5 +27,5 @@
           to: "{{ domain_name }}"
           from: "{{ proxy_from }}"
       srv_name: "v2ray"
-    # - role: v2ray
-    #   app_port: "{{ proxy_port }}"
+    - role: v2ray
+      app_port: "{{ proxy_port }}"

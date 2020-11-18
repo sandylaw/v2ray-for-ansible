@@ -89,5 +89,7 @@
     acme.sh --issue -d "{{ domain_name }}" --standalone -k ec-256 --force
     sleep 2
     acme.sh --installcert -d "{{ domain_name }}" --fullchainpath /data/v2ray.crt --keypath /data/v2ray.key --ecc --force
-  when: install_directory is defined
+  changed_when: true
   notify: restart nginx
+  tags:
+    - cert

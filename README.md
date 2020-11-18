@@ -21,4 +21,6 @@ GNU/Linux 10 上测试通过。Debian GNU/Linux 更低版本或 Ubuntu
 
 ### 使用方法
 
+`git submodule update --init roles/acme`
+
 `bash setup`
